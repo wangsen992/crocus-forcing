@@ -1,0 +1,27 @@
+# UIC (University of Illinois at Chicago) case configuration
+
+# Location
+central_lat: 41.8692893
+central_lon: -87.6463732
+
+# Time period
+start_date: "2024-07-01T00:00:00"
+end_date: "2024-07-06T00:00:00"
+
+# Case name
+case_name: "Forcing_UIC_case0"
+
+# Data source
+era5_expver: 1  # 1=normal ERA5, 5=ERA5 near-realtime
+
+# Height offset (terrain elevation)
+z0: 177.0
+
+# Area size (degrees)
+area_size: 1.0
+
+# Processing
+n_av: 1
+method: "2nd"
+
+# Heights will use defaults from default.yaml

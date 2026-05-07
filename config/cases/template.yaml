@@ -1,0 +1,32 @@
+# Template for new case configuration
+
+# Location
+central_lat: 0.0
+central_lon: 0.0
+
+# Time period (ISO format)
+start_date: "2024-01-01T00:00:00"
+end_date: "2024-01-07T00:00:00"
+
+# Case name
+case_name: "my_case"
+
+# Data source
+era5_expver: 1  # 1=normal ERA5, 5=ERA5 near-realtime
+
+# Height offset (terrain elevation in meters)
+z0: 0.0
+
+# Area size (degrees)
+area_size: 1.0
+
+# Processing options
+n_av: 1
+method: "2nd"
+
+# Optional: override default heights
+# heights:
+#   - 10
+#   - 30
+#   - 50
+#   ...

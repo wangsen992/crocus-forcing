@@ -1,0 +1,53 @@
+# ===========================================
+# crocus-forcing Apptainer Definition
+# ===========================================
+#
+# Base: python:3.11-slim with CDS API and ls2d
+# For downloading and processing ERA5 forcing data
+#
+# Usage:
+#   ./build.sh              # Build SIF from this definition
+#   ./run.sh --help        # Show run options
+#
+# ===========================================
+
+Bootstrap: docker
+From: python:3.11-slim
+
+%post
+    apt-get update && apt-get install -y \
+        libgdal-dev \
+        gdal-bin \
+        libproj-dev \
+        proj-bin \
+        libgeos-dev \
+        libsqlite3-dev \
+        libeccodes-dev \
+        && rm -rf /var/lib/apt/lists/*
+
+    pip install --no-cache-dir \
+        cdsapi \
+        xarray \
+        netcdf4 \
+        pandas \
+        pyyaml \
+        scipy \
+        matplotlib
+
+    pip install --no-cache-dir \
+        git+https://github.com/LS2D/ls2d.git
+
+    mkdir -p /workspace
+    git clone https://github.com/wangsen992/crocus-forcing.git /opt/crocus-forcing || true
+    cd /opt/crocus-forcing && pip install -e .
+
+    echo "crocus-forcing container ready"
+
+%environment
+    export PYTHONPATH="/opt/crocus-forcing:$PYTHONPATH"
+    export CDSAPI_URL=https://cds.climate.copernicus.eu/api
+
+%labels
+    org.opencontainers.image.source = "https://github.com/wangsen992/crocus-forcing"
+    org.opencontainers.image.description = "CROCUS ERA5 forcing data processing for urban CFD"
+    version = "0.1.0"
