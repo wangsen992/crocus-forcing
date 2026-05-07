@@ -2,6 +2,7 @@
 ERA5 processor using ls2d for forcing calculations
 """
 
+from pathlib import Path
 from typing import Dict, Any, List
 import numpy as np
 import xarray as xr
