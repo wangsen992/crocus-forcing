@@ -44,6 +44,10 @@ From: python:3.11-slim
 
     echo "crocus-forcing container ready"
 
+%files
+    src/ls2d/ecmwf/L137_grid.txt /usr/local/lib/python3.11/site-packages/ls2d/ecmwf/L137_grid.txt
+    src/ls2d/ecmwf/L60_grid.txt /usr/local/lib/python3.11/site-packages/ls2d/ecmwf/L60_grid.txt
+
 %environment
     export PYTHONPATH="/opt/crocus-forcing:$PYTHONPATH"
     export CDSAPI_URL=https://cds.climate.copernicus.eu/api

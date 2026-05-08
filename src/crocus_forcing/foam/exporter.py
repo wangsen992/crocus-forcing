@@ -48,7 +48,15 @@ class FoamExporter:
         """
         ds = forcing.dataset
         z = ds.z.values + forcing.z0
-        t = ds.time_sec.values
+
+        if "time_sec" in ds.coords:
+            t = ds.time_sec.values
+        elif "time" in ds.coords:
+            time_vals = ds.time.values
+            start_time = time_vals[0]
+            t = np.array([(t_val - start_time) / np.timedelta64(1, 's') for t_val in time_vals])
+        else:
+            raise ValueError("Cannot find time coordinate in dataset")
 
         case_name = config.get("case_name", "forcing")
 
